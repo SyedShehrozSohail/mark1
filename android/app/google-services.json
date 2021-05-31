@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "530870938747",
+    "project_id": "mark-practice",
+    "storage_bucket": "mark-practice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530870938747:android:f3315efd9b99b44272c6de",
+        "android_client_info": {
+          "package_name": "com.mark1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530870938747-24omfaf8eop9obrh4g3rtl2i5u70c83s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mark1",
+            "certificate_hash": "60838be6cf33b5c210311cbbc87ca15567e3cdaa"
+          }
+        },
+        {
+          "client_id": "530870938747-eq3rvq0vpvn3e4tgmhe4gpq1cejhq714.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsZu9mNn0m3WRh2bbqFEtVh_AeIhTAiDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530870938747-eq3rvq0vpvn3e4tgmhe4gpq1cejhq714.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "530870938747-0qsq3ie5pgdpa5200ig5v590fp2u6uvr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.mark1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
