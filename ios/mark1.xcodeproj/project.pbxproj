@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* mark1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* mark1Tests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		183D11A82661062D00A9AAAA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D11A72661062D00A9AAAA /* File.swift */; };
+		186362562678C60F002472B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 186362552678C60F002472B4 /* Images.xcassets */; };
 		18B6D2F5265642C4001A2896 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18B6D2F4265642C4001A2896 /* GoogleService-Info.plist */; };
 		8D85E200BB086716B81E7141 /* libPods-mark1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AD6ED0229332DA4F7948053 /* libPods-mark1.a */; };
 		DEAE1D9D37040D693EB0DFB9 /* libPods-mark1-mark1Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 893475AF77658831DA483063 /* libPods-mark1-mark1Tests.a */; };
@@ -34,12 +34,13 @@
 		13B07F961A680F5B00A75B9A /* mark1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mark1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = mark1/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = mark1/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = mark1/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = mark1/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = mark1/main.m; sourceTree = "<group>"; };
 		183D11A02660E03600A9AAAA /* libFBSDKCoreKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libFBSDKCoreKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		183D11A62661062C00A9AAAA /* mark1-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mark1-Bridging-Header.h"; sourceTree = "<group>"; };
 		183D11A72661062D00A9AAAA /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		186362552678C60F002472B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../kizbin_mobile/ios/kizbin/Images.xcassets; sourceTree = "<group>"; };
+		186363B22679E19B002472B4 /* mark1.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = mark1.entitlements; path = mark1/mark1.entitlements; sourceTree = "<group>"; };
 		18B6D2F4265642C4001A2896 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		217E209ACF7A9A300A2D680B /* Pods-mark1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mark1.debug.xcconfig"; path = "Target Support Files/Pods-mark1/Pods-mark1.debug.xcconfig"; sourceTree = "<group>"; };
 		3D7F2A1B8B9A60AD4D935509 /* Pods-mark1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mark1.release.xcconfig"; path = "Target Support Files/Pods-mark1/Pods-mark1.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,10 +92,11 @@
 		13B07FAE1A68108700A75B9A /* mark1 */ = {
 			isa = PBXGroup;
 			children = (
+				186363B22679E19B002472B4 /* mark1.entitlements */,
 				18B6D2F4265642C4001A2896 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				186362552678C60F002472B4 /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -252,7 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				186362562678C60F002472B4 /* Images.xcassets in Resources */,
 				18B6D2F5265642C4001A2896 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,7 +511,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = mark1/mark1.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 4TH5BY4R5W;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = mark1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -521,8 +527,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tbox.mark1;
 				PRODUCT_NAME = mark1;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "mark1-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -536,7 +543,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = mark1/mark1.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 4TH5BY4R5W;
 				INFOPLIST_FILE = mark1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -547,8 +558,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tbox.mark1;
 				PRODUCT_NAME = mark1;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "mark1-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -7,7 +7,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
+// import co.apptailor.googlesignin.RNGoogleSigninPackage;  // <--- import
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 import com.facebook.soloader.SoLoader;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -30,7 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           new VectorIconsPackage();
-          new RNGoogleSigninPackage(); // <-- this needs to be in the list
+          // new RNGoogleSigninPackage(); // <-- this needs to be in the list
           new ReactNativeFirebaseAuthPackage();
 
 

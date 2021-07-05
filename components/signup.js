@@ -1,7 +1,7 @@
 // components/signup.js
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Alert, ActivityIndicator, Platform } from 'react-native';
 import firebase from '../database/firebase';
 import {
     GoogleSignin,
@@ -11,7 +11,11 @@ import {
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken, LoginButton } from 'react-native-fbsdk';
-
+import appleAuth, {
+    AppleButton,
+    AppleAuthRequestOperation,
+    AppleAuthRequestScope,
+} from "@invertase/react-native-apple-authentication";
 
 export default class Signup extends Component {
 
@@ -24,16 +28,66 @@ export default class Signup extends Component {
             isLoading: false
         }
     }
-    onFacebookButtonPress = async () => {
-    // Attempt login with permissions
-    const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+    onAppleButtonPress = async () => {
+        debugger;
+        const appleAuthRequestResponse = await appleAuth.performRequest({
+            requestedOperation: appleAuth.Operation.LOGIN,
+            requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+        });
+        // get current authentication state for user
+        // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+        const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+        // use credentialState response to ensure the user is authenticated
+        if (credentialState === appleAuth.State.AUTHORIZED) {
+            if (!appleAuthRequestResponse.identityToken) {
+                throw 'Apple Sign-In failed - no identify token returned';
+            }
 
-    if (result.isCancelled) {
-        throw 'User cancelled the login process';
+            // Create a Firebase credential from the response
+            const { identityToken, nonce } = appleAuthRequestResponse;
+            const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
+            debugger;
+            // Sign the user in with the credential
+            auth().signInWithCredential(appleCredential);
+            // user is authenticated
+            alert("User is authenticated");
+        }
     }
 
-    // Once signed in, get the users AccesToken
-    const data = await AccessToken.getCurrentAccessToken();
+    initUser = (token) => {
+        fetch('https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' + token)
+            .then((response) => {
+                response.json().then((json) => {
+                    const ID = json.id
+                    console.log("ID " + ID); 
+
+                    const EM = json.email
+                    console.log("Email " + EM); 
+
+                    const FN = json.first_name
+                    console.log("First Name " + FN); 
+                })
+            })
+            .catch(() => {
+                console.log('ERROR GETTING DATA FROM FACEBOOK')
+            })
+    }
+
+    onFacebookButtonPress = async () => {
+        // Attempt login with permissions
+        const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+        if (result.isCancelled) {
+            throw 'User cancelled the login process';
+        }
+
+        // Once signed in, get the users AccesToken
+        const data = await AccessToken.getCurrentAccessToken().then((user) => {
+            const { accessToken } = user
+            this.initUser(accessToken)
+
+            return user
+        });
 
     if (!data) {
         throw 'Something went wrong obtaining access token';
@@ -46,6 +100,7 @@ export default class Signup extends Component {
     return auth().signInWithCredential(facebookCredential);
 }
     _signIn = async () => {
+        
         GoogleSignin.configure({
             scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
             webClientId: '530870938747-eq3rvq0vpvn3e4tgmhe4gpq1cejhq714.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -55,10 +110,13 @@ export default class Signup extends Component {
         const { idToken } = await GoogleSignin.signIn();
 
         // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);        
         // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential);
+        return auth().signInWithCredential(googleCredential).then(() =>
+            this.props.navigation.navigate('Dashboard'), err => {
+                console.log('Fetch Error: ', err);
+            }
+        );
          
     };
     
@@ -67,6 +125,21 @@ export default class Signup extends Component {
         state[prop] = val;
         this.setState(state);
     }
+
+    getCurrentUserInfo = async () => {
+        try {
+            const userInfo = await GoogleSignin.signInSilently();
+            this.setState({ userInfo });
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+                // user has not signed in yet
+                this.setState({ loggedIn: false });
+            } else {
+                // some other error
+                this.setState({ loggedIn: false });
+            }
+        }
+    };
 
     registerUser = () => {
         if (this.state.email === '' && this.state.password === '') {
@@ -105,7 +178,7 @@ export default class Signup extends Component {
         }
         return (
             <View style={styles.container}>
-                <TextInput
+                {/* <TextInput
                     style={styles.inputStyle}
                     placeholder="Name"
                     value={this.state.displayName}
@@ -142,7 +215,7 @@ export default class Signup extends Component {
                     <Text style={{ alignSelf: "center", fontWeight: "bold", color: "#777" }}>
                     Sign up with Email
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             
                 
                     <GoogleSigninButton
@@ -174,11 +247,28 @@ export default class Signup extends Component {
                         Sign up with Facebook
                     </Text>
                 </TouchableOpacity>
-                <Text
+                {
+                    Platform.OS === "ios" &&
+                    <AppleButton
+                        buttonStyle={AppleButton.Style.WHITE}
+                        buttonType={AppleButton.Type.SIGN_IN}
+                        style={{
+                            alignSelf: "center",
+                            width: widthPercentageToDP(48),
+                            height: heightPercentageToDP(6),
+                            justifyContent: "center"
+                        }}
+                        // style={{ width: widthPercentageToDP(50), height: heightPercentageToDP(7.5), alignSelf: "center" }}
+
+                        onPress={() => this.onAppleButtonPress()}
+                    />
+                }
+                
+                {/* <Text
                     style={styles.loginText}
                     onPress={() => this.props.navigation.navigate('Login')}>
                     Already Registered? Click here to login
-        </Text>
+        </Text> */}
             </View>
         );
     }

@@ -3,6 +3,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import firebase from '../database/firebase';
+import {
+    GoogleSignin,
+    statusCodes,
+} from "@react-native-google-signin/google-signin";
 
 export default class Dashboard extends Component {
     constructor() {
@@ -11,19 +15,44 @@ export default class Dashboard extends Component {
             uid: ''
         }
     }
-
-    signOut = () => {
-        firebase.auth().signOut().then(() => {
-            this.props.navigation.navigate('Login')
-        })
-            .catch(error => this.setState({ errorMessage: error.message }))
-    }
-
-    render() {
-        this.state = {
-            displayName: firebase.auth().currentUser.displayName,
-            uid: firebase.auth().currentUser.uid
+    componentDidMount = async () => {
+        try {
+            const userInfo = await GoogleSignin.signInSilently();
+            this.setState({
+                displayName: userInfo?.user?.name ? userInfo.user.name : "",
+                uid: userInfo?.user?.id ? userInfo.user.id : "",
+            });
+        } catch (error) {
+            if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+                this.setState({ loggedIn: false });
+            } else {
+                this.setState({ loggedIn: false });
+            }
         }
+    }
+    
+    // signOut = () => {
+    //     firebase.auth().signOut().then(() => {
+    //         this.props.navigation.navigate('Login')
+    //     })
+    //         .catch(error => this.setState({ errorMessage: error.message }))
+    // }
+    signOut = async () => {
+        try {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut().then(() => {
+            this.props.navigation.navigate('Signup')
+        })
+            .catch(error => this.setState({ errorMessage: error.message }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    render() {
+        // this.state = {
+        //     displayName: GoogleSignin.signInSilently()?.user?.givenName ? GoogleSignin.signInSilently().user.givenName: "" ,
+        //     uid: "firebase.auth().currentUser.uid"
+        // }
         return (
             <View style={styles.container}>
                 <Text style={styles.textStyle}>
